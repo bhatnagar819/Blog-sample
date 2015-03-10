@@ -1,3 +1,4 @@
+
 <p>
   <strong>Title:</strong>
   <%= @article.title %>
@@ -8,16 +9,18 @@
   <%= @article.text %>
 </p>
 <h2>Comments</h2>
-<% @article.comments.each do |comment| %>
-  <p>
+<% broadcast "/articles" do %>
+   <% @article.comments.each do |comment| %>
+    <p>
     <strong>Commenter:</strong>
     <%= comment.commenter %>
-  </p>
- 
-  <p>
+    </p>
+
+    <p>
     <strong>Comment:</strong>
     <%= comment.body %>
-  </p>
+    </p>
+    <% end %>
 <% end %>
 <h2>Add a comment:</h2>
 <%= form_for([@article, @article.comments.build]) do |f| %>
